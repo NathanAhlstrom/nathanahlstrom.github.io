@@ -1,0 +1,23 @@
+---
+layout: post
+title: CORAL repository merge on GitHub.com
+date: 
+type: post
+published: false
+status: draft
+categories:
+- Life
+tags: []
+meta:
+  _edit_last: '51126004'
+  geo_public: '0'
+author:
+  login: nathanahlstrom
+  email: nathan.ahlstrom@outlook.com
+  display_name: nathanahlstrom
+  first_name: ''
+  last_name: ''
+---
+<p>Desiring to streamline the CORAL GitHub repositories into on main CORAL repository. Found this very helpful post <a title="Merging Two Git Repositories Into One Repository Without Losing File History" href="http://saintgimp.org/2013/01/22/merging-two-git-repositories-into-one-repository-without-losing-file-history/" target="_blank">http://saintgimp.org/2013/01/22/merging-two-git-repositories-into-one-repository-without-losing-file-history/</a></p>
+<p>The recipe on this site includes an outline in Powershell to do the activities.  Nothing against powershell, but I'm a Linux user primarily.  So here is the recipe re-worked slightly to be CentOS 6.5 and BASH compatible.</p>
+<p>ls -1 -I .git -I .gitignore -I management | xargs -n 1 -I f git mv f management</p>

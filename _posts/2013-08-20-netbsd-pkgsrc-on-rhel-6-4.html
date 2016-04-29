@@ -1,0 +1,48 @@
+---
+layout: post
+title: NetBSD pkgsrc on RHEL 6.4
+date: 2013-08-20 14:25:13.000000000 -05:00
+type: post
+published: true
+status: publish
+categories:
+- Web Development
+tags:
+- centos
+- linux
+- NetBSD
+- packages
+- pkgsrc
+- RHEL
+- RPM
+meta:
+  _edit_last: '51126004'
+  geo_public: '0'
+  _publicize_pending: '1'
+author: Nathan Ahlstrom
+---
+<!--more-->
+<p>The NetBSD operating system has along with it this wonderful package building system called pkgsrc. The pkgsrc is a collection of Makefiles that has rules to build nearly every open source software distribution available.</p>
+<p>I am using it on RedHat Enterprise Linux 6.4 to update some of the system packages to the latest versions. RHEL has the wonderful yum command that pulls down binary RPM packages from RedHat servers, but RedHat doesn't make available easily the latest versions of some important software that I am using, notably PHP and Tomcat. Additionally if these packages are available through other add-on repositories, they frequently overwrite the system package.</p>
+<p>Enter pkgsrc.</p>
+<p>Indispensable for DevOps type folks.</p>
+<p>It puts compiled packages into an alternative directory structure, by default "/usr/pkg". I change it to be "/opt/pkg". It won't overwrite your system packages and gives you easy access to all the open source software you need.</p>
+<p>To being using pkgsrc:</p>
+<pre>wget http://ftp.netbsd.org/pub/pkgsrc/current/pkgsrc.tar.gz
+tar xzvf pkgsrc.tar.gz -C /opt
+cd /opt/pkgsrc/bootstrap
+./bootstrap --prefix /opt/pkg</pre>
+<p>Wait a few minutes.</p>
+<p>Edit your ~/.bash_profile to look like this:</p>
+<pre>PATH=$PATH:/opt/pkg/bin:/opt/pkg/sbin:$HOME/bin
+export PATH
+
+# run from the command line to update your PATH.
+. ~/.bash_profile</pre>
+<p>Now go into /opt/pkgsrc/www/apache22 and as root (or with sudo) run:</p>
+<pre>bmake install</pre>
+<p>It will download the source from apache.org mirrors, check the distribution integrity, compile it all for you, and install it with sensible defaults into /opt/pkg.</p>
+<p>When it completes (it could take 10 minutes or so depending on your hardware) all the latest Apache HTTPD server will be installed to /opt/pkg/sbin and /opt/pkg/bin.</p>
+<p>Learn more at <a href="http://pkgsrc.org">http://pkgsrc.org/</a>.</p>
+<p>How did you upgrade to php-5.5.2? Or install tomcat-7.0.42?</p>
+<p><strong><span style="color:#993300;">Update: You may need to install the GCC compiler rpm (gcc-4.4.7-3.el6) before you can bootstrap pkgsrc. Pkgsrc requires you to have a working C compiler on your system.</span></strong></p>

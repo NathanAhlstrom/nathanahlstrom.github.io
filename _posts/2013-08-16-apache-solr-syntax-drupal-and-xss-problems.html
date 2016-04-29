@@ -1,0 +1,317 @@
+---
+layout: post
+title: Apache Solr syntax, Drupal, and XSS problems
+date: 2013-08-16 15:53:28.000000000 -05:00
+type: post
+published: true
+status: publish
+categories:
+- Web Development
+tags:
+- Apache
+- Drupal
+- SiteMinder
+- Solr
+- troubleshooting
+meta:
+  _edit_last: '51126004'
+  geo_public: '0'
+  _publicize_pending: '1'
+  twitter_cards_summary_img_size: a:6:{i:0;i:916;i:1;i:228;i:2;i:3;i:3;s:24:"width="916"
+    height="228"";s:4:"bits";i:8;s:4:"mime";s:9:"image/png";}
+  _oembed_8f55571bd6a0f132f5eedc5aab51e753: '{{unknown}}'
+  _oembed_fe48212da36e86f23f2c2cc2124d1272: '{{unknown}}'
+  _oembed_e39a9b4e67591d34021ac55a9df00ff0: '{{unknown}}'
+  _oembed_8ddf9f538f784b5968190fe08041f677: '{{unknown}}'
+  _oembed_9b45cec7fc2d176201b131f0048e8a37: '{{unknown}}'
+  _oembed_e10522bfdc2c64198b8946ea3097a370: '{{unknown}}'
+  _oembed_e994ce3cbe60599efd34f7f578a00eba: '{{unknown}}'
+  _oembed_1e25d8aec87449409649731610b1393d: '{{unknown}}'
+  _oembed_cdaf89fa12ef81d1245cb958be308ce4: '{{unknown}}'
+  _oembed_7bf0e61052163369377c140abf834feb: '{{unknown}}'
+  _oembed_0b4e3d923fb83870f0b4ce323e7ea02c: '{{unknown}}'
+  _oembed_8440f5b3194aba966d6b9376877e654a: '{{unknown}}'
+  _oembed_cbbd4658e67885872ad0737717f0c40d: '{{unknown}}'
+  _oembed_2618080feeac346ef47a148fc4a29431: '{{unknown}}'
+  _oembed_b12be12837d8d4cd2f2557100b266b78: '{{unknown}}'
+  _oembed_ed9e846f5c289de5cd2f87456d2cf745: '{{unknown}}'
+  _oembed_1fcd1898e4fc5159127e72c5e688e279: '{{unknown}}'
+  _oembed_38153d9b24b583c8456981a48fa4e975: '{{unknown}}'
+  _oembed_97445a0e1eb76cb4080dd4d83c9c90a1: '{{unknown}}'
+  _oembed_2407882d4049457c6c5e5f17892f33f5: '{{unknown}}'
+  _oembed_e18e5e8d59607f73e6f3d0530378db7f: '{{unknown}}'
+  _oembed_2435d461aefdd847b6e46e768f367f41: '{{unknown}}'
+  _oembed_6d31c7541c756203bfbbf7f427e71a6a: '{{unknown}}'
+  _oembed_a7e3a15d61d241898835e702b386bdd2: '{{unknown}}'
+  _oembed_8fe046db68698d34a3736515687d7181: '{{unknown}}'
+  _oembed_96bbad8a58d0ccf8da7065f8545d134f: '{{unknown}}'
+  _oembed_2d25e6bd58738d96b217202cab7d2e41: '{{unknown}}'
+  _oembed_1e7051a845b8b98604774d789034cf00: '{{unknown}}'
+  _oembed_28dbc25ab6fd1deb47777118e0a8a3ff: '{{unknown}}'
+  _oembed_0f2e3dd7c81d9a1beaf4b78da9c59839: '{{unknown}}'
+  _oembed_69a238f15059cb4194cbb10d4fd00c14: '{{unknown}}'
+  _oembed_3ede818367ad7a051d60a6bb241b097c: '{{unknown}}'
+  _oembed_20793b56209fc7ba10b07a40b05df1ec: '{{unknown}}'
+  _oembed_d7a2926826f8544d5b3146594523b358: '{{unknown}}'
+  _oembed_227d0ebed5700c1a248e1134d6b5b853: '{{unknown}}'
+  _oembed_1f50907952d26a0678bc4699239646c8: '{{unknown}}'
+  _oembed_b75c45169195f814de2c3e526c3c9048: '{{unknown}}'
+  _oembed_49e08792b488a3666fe4c6b62ad81ca5: '{{unknown}}'
+  _oembed_3642102580ad5b9e49fcfa575097a617: '{{unknown}}'
+  _oembed_b0dd0fdbd2e6d1a721ea41abb37b3eeb: '{{unknown}}'
+  _oembed_2cdd2c7cc1db1d99fae03c07020ccf0c: '{{unknown}}'
+  _oembed_dff95dc845c2a4dbdd55c7f90ba619da: '{{unknown}}'
+  _oembed_24f2d7b65ed5b9d1f1da093e15f309f0: '{{unknown}}'
+  _oembed_5bb2d95cf953a31efdea4d4aa3426fba: '{{unknown}}'
+  _oembed_cc6154475ca5d18293df14869891371b: '{{unknown}}'
+  _oembed_7e141ac045fff8f46b04517511bf40d8: '{{unknown}}'
+  _oembed_cdfabaacdbbac5f97f60c213d0a2a3fc: '{{unknown}}'
+  _oembed_01f100014f8720dbe01e0682c5c0df5d: '{{unknown}}'
+  _oembed_dc94a5010bbe2d4af8b85507e95d1adf: '{{unknown}}'
+  _oembed_c5f2386cdf4fe324836679ba5ee869a5: '{{unknown}}'
+  _oembed_d84bcb987a62a815b80c2b5d7e60306c: '{{unknown}}'
+  _oembed_2bbbe711fadce67bd6b4121ee8c8b72d: '{{unknown}}'
+  _oembed_01c71e70d8051f2416731f6211f9fa5a: '{{unknown}}'
+  _oembed_cb7533a56b8b7d3694681b03770e279e: '{{unknown}}'
+  _oembed_f733378041afe1c1b69efa447b2d894d: '{{unknown}}'
+  _oembed_e3a189d7ab7047d1591b4b6ab2af9f33: '{{unknown}}'
+  _oembed_4d48baa30e142f1636ffffd634475236: '{{unknown}}'
+  _oembed_65cd8fa110e8df0b712a5ffcbb6fe5d6: '{{unknown}}'
+  _oembed_270fee632fbb484545ce3268301d72f3: '{{unknown}}'
+  _oembed_45caa9d3d116666b181c0c059bb91ff6: '{{unknown}}'
+  _oembed_afcd00bc9795e084a713be9c6b7f3ce9: '{{unknown}}'
+  _oembed_55b408cbddd8ac7d5b3c191c091c140e: '{{unknown}}'
+  _oembed_c8c0b0420410ce65251e4a6f5cb8948f: '{{unknown}}'
+  _oembed_d39d07ffdb4e3861a8f1af1ced66b4d5: '{{unknown}}'
+  _oembed_dab9e940bff194e58d60f38065c9fc1a: '{{unknown}}'
+  _oembed_121696bc2357bd9a0727c30e4b491926: '{{unknown}}'
+  _oembed_3176838e37a114c2a8493a14f925900c: '{{unknown}}'
+  _oembed_f8aa5fa2895ba9bc0b3c86d1c318a2b4: '{{unknown}}'
+  _oembed_b98c57564924a425bba1ba2c585633c8: '{{unknown}}'
+  _oembed_614da539b266fcea4f2bd7896129672c: '{{unknown}}'
+  _oembed_af3b05c3aa9fd426867a9e444372e5a7: '{{unknown}}'
+  _oembed_b9f69541d2fc40dddb0524580b5b2716: '{{unknown}}'
+  _oembed_bd38c56557ea3210c01c367a097dbccd: '{{unknown}}'
+  _oembed_a41cfd37b405fee21d43555d4a9fcc28: '{{unknown}}'
+  _oembed_ebaabe4e7144f9ee6ae2b2f9c5430ec3: '{{unknown}}'
+  _oembed_319f3c1e8e02ef994b19c18764aecb82: '{{unknown}}'
+  _oembed_1c3782f24db679610492e2b03cb3f388: '{{unknown}}'
+  _oembed_9ce34b89690b0619e4fc4a0db2438b57: '{{unknown}}'
+  _oembed_c1307f275402b730b8305c53b2a46a21: '{{unknown}}'
+  _oembed_6f80dcf83fbdf99f3a8d33ab290f3692: '{{unknown}}'
+  _oembed_81e4c018f1e3b22a0f874b31775ce6ff: '{{unknown}}'
+  _oembed_887c55f2f159680fb3a2dc88cba4ae7f: '{{unknown}}'
+  _oembed_be28e876b45b000924f0cf01f97abb04: '{{unknown}}'
+  _oembed_da3958986f4305f26a3dd181a41a02d7: '{{unknown}}'
+  _oembed_e88e947348249dae0738332a3771a2d6: '{{unknown}}'
+  _oembed_401acf3054ded6aaa9bb8f0f360cc1ad: '{{unknown}}'
+  _oembed_3b87143a72334cc8c6a243a12e82c125: '{{unknown}}'
+  _oembed_51cd1524563753742083dd67ffbf30b0: '{{unknown}}'
+  _oembed_d7384a999c49708a299d8cddbb067ee7: '{{unknown}}'
+  _oembed_2691799e1ce1821c6bf31bc8bce236c2: '{{unknown}}'
+  _oembed_3bc2f76d868878e09057c380dfb1a73e: '{{unknown}}'
+  _oembed_57af85703eaf112e8e958e43e07e4c75: '{{unknown}}'
+  _oembed_935fb34263f90a5c4c88a44295ae73cb: '{{unknown}}'
+  _oembed_9c6e65f39d75e754d4892e882c695860: '{{unknown}}'
+  _oembed_e41d3af34bc2426b6a55f2d165a733d5: '{{unknown}}'
+  _oembed_47ef5bf8abcecc7c6b96c5580ca13962: '{{unknown}}'
+  _oembed_58cbc7d2ad9e7bb37d91446f6ff9f8eb: '{{unknown}}'
+  _oembed_ff3ecd92af4d1549aff63fd4b14ffe5d: '{{unknown}}'
+  _oembed_79d1ffda223a951c285bc55669354a66: '{{unknown}}'
+  _oembed_cbe67c4e34ce7f6ce7dd289b88d047f6: '{{unknown}}'
+  _oembed_9d0c82f369fab379490b5365f239f3ab: '{{unknown}}'
+  _oembed_c6e841d90da8369bc67c52dd7fbcb434: '{{unknown}}'
+  _oembed_054bff51650bf73ebbde553aabe13793: '{{unknown}}'
+  _oembed_293e1b786d6f6a8f879bbc715daae387: '{{unknown}}'
+  _oembed_098241ec4fa812ab7e6035e9194d259f: '{{unknown}}'
+  _oembed_ed97117e6151bb5de3e7491b6553b445: '{{unknown}}'
+  _oembed_a4f0b8a2a4835d92acb908733cba2606: '{{unknown}}'
+  _oembed_81a8d842f3b6eb7bd1c8fb98a04e1a52: '{{unknown}}'
+  _oembed_73847628fa82d4f84bf602021524428e: '{{unknown}}'
+  _oembed_f2b5ba9092954e61b1d2556484911ee8: '{{unknown}}'
+  _oembed_bb2f97e900f59f920b178c51100c301e: '{{unknown}}'
+  _oembed_9a5a38a2291f496f2ccc7b1f42ac5635: '{{unknown}}'
+  _oembed_aa44ccf38beedab27fe86c32360fbf87: '{{unknown}}'
+  _oembed_f7220a45afb44ce151b8cc87b46ac489: '{{unknown}}'
+  _oembed_8692bd48ab8d2608f70d71a3f0313a38: '{{unknown}}'
+  _oembed_f7d9e559cbb504894c08f5febf617337: '{{unknown}}'
+  _oembed_f0aa04455217c63ac5947fc96956c15d: '{{unknown}}'
+  _oembed_b8e122eaea7577377354374ed696afdb: '{{unknown}}'
+  _oembed_2b9b43e46c29de019ca1cdb0e0251386: '{{unknown}}'
+  _oembed_68f8f62d1bcf81c46b773043b0d6c082: '{{unknown}}'
+  _oembed_6c58222e3cd194e145430355df961a0d: '{{unknown}}'
+  _oembed_3d189afb6cd6eab5b1a3f63135e903ed: '{{unknown}}'
+  _oembed_01a1069f71620906cdec991d585c9a64: '{{unknown}}'
+  _oembed_b87a6383d4ad575eed55632425b19984: '{{unknown}}'
+  _oembed_3df216b042835066f0178293d46d764e: '{{unknown}}'
+  _oembed_8aefda71872d910aeef2d988c5e0ffac: '{{unknown}}'
+  _oembed_d444691e584ac1b9a816ecebd69a193b: '{{unknown}}'
+  _oembed_0eee3bb4e87c1e24a5bc110ad7d03ffe: '{{unknown}}'
+  _oembed_4be87b11876b5acf53f21acacba46f64: '{{unknown}}'
+  _oembed_b698d4d889d79fa1317e7c29db56c631: '{{unknown}}'
+  _oembed_8119ebf57bbac2f4cd442139741295c7: '{{unknown}}'
+  _oembed_a40f64a38aa503bb2621c787c76b7a42: '{{unknown}}'
+  _oembed_314f01f4d96c6a46b3c4ab1adf1695bf: '{{unknown}}'
+  _oembed_905007092f20f15999636d4406f04faa: '{{unknown}}'
+  _oembed_a55ac3c7edfcd26b4a116d022d66b8e5: '{{unknown}}'
+  _oembed_915bb6dbb3a6eb500b0e67cc9fc89057: '{{unknown}}'
+  _oembed_7076da69ef61ad723463416ab2bd51cc: '{{unknown}}'
+  _oembed_e0e70b516f30a05c153848e15dc53911: '{{unknown}}'
+  _oembed_379cd516cf6e705f3c62f421b2cb6f5c: '{{unknown}}'
+  _oembed_1ad45b7507441ab8829b63eb48f7faac: '{{unknown}}'
+  _oembed_9ecde3815e95b0eb44c779f9d55cdd57: '{{unknown}}'
+  _oembed_68200964149e92ebcb8dcba06285b0d0: '{{unknown}}'
+  _oembed_afe4d83c3d06d2e83aa878469c3cdbed: '{{unknown}}'
+  _oembed_371c286491f6fb95d0fb21a2113a3421: '{{unknown}}'
+  _oembed_5f1fdb62fcb4300a28dcee0369771e19: '{{unknown}}'
+  _oembed_52dd8221d8577d3e77f709e95f813f31: '{{unknown}}'
+  _oembed_08dd1fbac9dbca480bb053b675ad81b6: '{{unknown}}'
+  _oembed_07a50fbc34f20fdd32f81771f671710d: '{{unknown}}'
+author: Nathan Ahlstrom
+---
+<!--more-->
+<p>In the past year myself and a work colleague have deployed Drupal 7 to collect and archive internal conference papers and proceedings.  We are using a variety of excellent Drupal modules including the apachesolr and apachesolr_attachments.  The Apache Solr search engine is exceptional providing some exciting and advanced search capabilities.  Additionally the Solr integration with Drupal is top-notch.</p>
+<p>However, we are seeing some of the advanced search operators break our web server. Entering double quotes around search terms, using the truncation search syntax (ex: packag* to match package, packaging, packaged and more), and proximity syntax (ex: "packaging plastic" ~5 to find these words within 5 words of each other) all result in this error message!</p>
+<p><img class="aligncenter size-large wp-image-48" alt="httpd 500 error" src="{{ site.baseurl }}/assets/ap500error.png?w=750" width="750" height="186" /></p>
+<p>Clearly not an endearing error message marring our beautiful portal!</p>
+<p>After several weeks of searching for the answer including posting several bug reports to drupal.org, upgrading PHP to a newer version, inspecting the web server configuration, etc., I found a hint in the SiteMinder log file.</p>
+<p><img class="aligncenter size-full wp-image-49" alt="500 error source" src="{{ site.baseurl }}/assets/sm500error.png" width="645" height="38" /></p>
+<p>We are using CA SiteMinder with the webserver_auth module to authenticate users to our Drupal portal.  SiteMinder works by intercepting every call to your web server and checking your authorization to that URL.  It also checks if the URL has any "strange" characters that could be trying to hi-jack your site via a cross-site scripting attack.</p>
+<p>SiteMinder is the culprit!</p>
+<p>Several options at this point to move forward:</p>
+<ol>
+<li>Drop SiteMinder and find a different authentication mechanism.</li>
+<li>Configure SiteMinder to relax on the heavy handed XSS prevention.</li>
+<li>Find a patch for Drupal to work-around this issue.</li>
+<li>Update the apachesolr module to work around this issue.</li>
+</ol>
+<p>Dropping SiteMinder isn't an option, unfortunately.  Re-configuring it to play nice with Solr query syntax is still a possibility, but is going to take some time to interface with the team that manages it.  The apachesolr module has incorporated some excellent work to handle strange Solr syntax in the URL, so no other patches are available to battle this problem.  To get this resolved quickly I wrote a patch to the apachesolr module.</p>
+<p>My patch doesn't change the Solr query syntax or SiteMinder XSS detection, it simply encodes/decodes search terms on the URL.</p>
+<p>Here is the patch, to apply put this into your sites/all/modules/apachesolr directory as a patch file and run "patch &lt; filename.patch", repeat for both patches below.</p>
+<p>This patch is for the file apachesolr_search.module:</p>
+<pre>diff -r 16eb953d519f sites/all/modules/apachesolr/apachesolr_search.module
+---
+<!--more-->
+
+<!--more-->
+ a/sites/all/modules/apachesolr/apachesolr_search.module	Mon Jul 22 14:32:32 2013 -0500
++++ b/sites/all/modules/apachesolr/apachesolr_search.module	Fri Aug 16 08:47:01 2013 -0500
+@@ -6,6 +6,9 @@
+  *   Apache Solr search application.
+  */
+
++define('URL_ENCODE_KEY', "M64E");
++
++
+ /**
+  * Implements hook_init().
+  *
+@@ -796,9 +799,12 @@
+     // Retrieve suggestion
+     $suggestions = apachesolr_search_get_search_suggestions($search_page['env_id']);
+     if ($search_page &amp;&amp; !empty($suggestions)) {
++      // local hack here to check/encode suggestions with XSS characters.
++      $cleanedSug = localkey_encode($suggestions[0]);
++
+       $build['suggestions'] = array(
+         '#theme' =&gt; 'apachesolr_search_suggestions',
+-        '#links' =&gt; array(l($suggestions[0], $search_page['search_path'] . '/' . $suggestions[0])),
++        '#links' =&gt; array(l($suggestions[0], $search_page['search_path'] . '/' . $cleanedSug)),
+       );
+     }
+   }
+@@ -897,6 +903,15 @@
+         // Don't allow local params to pass through to EDismax from the url.
+         // We also remove any remaining leading {! since that causes a parse
+         // error in Solr.
++
++        /*
++         * Local hack, see bottom of apachesolr_search.module.
++         */
++        $keys = localkey_decode($keys);
++
+         $keys = preg_replace('/^(?:{![^}]*}\s*)*(?:{!\s*)*/',' ', $keys);
+         $params['q'] = $keys;
+         // Hardcoded apachesolr name since we rely on this for the facets
+@@ -1738,3 +1753,53 @@
+ }
++
++
++/*
++ * Local hacks below to fix URL encoding issues with SiteMinder apache 
++ * module.  Need to maintain this patch as a separate patch to apachesolr.
++ */
++
++/*
++ * handle encode in one function.
++ */
++function localkey_encode($string) {
++  if (strcmp(rawurlencode($string), $string) != 0) {
++    $string = base64url_encode($string);
++    $string .= URL_ENCODE_KEY;
++  }
++  return $string;
++}
++
++/*
++ * handle decode in one function.
++ */
++function localkey_decode($string) {
++  $keyRegex = "/" . URL_ENCODE_KEY . "$/";
++  if (preg_match($keyRegex, $string) == true ) {
++    $string = base64url_decode(str_replace(URL_ENCODE_KEY, "", $string));
++  }
++  return $string;
++}
++
++/*
++ * for encoding urls with crazy characters.
++ * from dropbucket.org/node/663
++ */
++function base64url_encode($string) {
++  $base64 = base64_encode($string);
++  $base64url = strtr($base64, '+/=', '-_,');
++  return $base64url;
++}
++ 
++/*
++ * for decoding those url params with weird characters.
++ */
++function base64url_decode($string) {
++  $base64url = strtr($string, '-_,', '+/=');
++  $base64 = base64_decode($base64url);
++  return $base64;
++}</pre>
+<p>Here is the second patch for the file apachesolr_search.pages.inc:</p>
+<pre>diff -r 35129b79808c sites/all/modules/apachesolr/apachesolr_search.pages.inc
+---
+<!--more-->
+
+<!--more-->
+ a/sites/all/modules/apachesolr/apachesolr_search.pages.inc Mon Jul 22 14:30:43 2013 -0500
++++ b/sites/all/modules/apachesolr/apachesolr_search.pages.inc Fri Aug 16 13:05:15 2013 -0500
+@@ -22,8 +22,18 @@
+ $search_page['search_path'] = str_replace('%', $path_replacer, $search_page['search_path']);
+ // Retrieve the conditions that apply to this page
+ $conditions = apachesolr_search_conditions_default($search_page);
++
++ /*
++ * Local hack, see bottom of apachesolr_search.module.
++ */
++ $keys = localkey_decode($keys);
++
+ // Process our keys so they are clean
+ $keys = rawurldecode($keys);
++
+ // Retrieve the results of the search
+ $results = apachesolr_search_search_results($keys, $conditions, $search_page);
+ // Initiate our build array
+@@ -102,6 +112,8 @@
+ $redirect_value = rawurlencode($form_state['values']['keys']);
+
+ if (strlen($form_state['values']['keys'])) {
++ // local change here. See bottom of apachesolr_search.module.
++ $redirect_value = localkey_encode($redirect_value);
+ $redirect .= '/' . $redirect_value;
+ }</pre>
+<p>How are you using Drupal + Solr? How would you have solved this problem? Sound off below.</p>

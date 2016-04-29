@@ -1,0 +1,58 @@
+---
+layout: post
+title: Running Apache Solr in Tomcat on RedHat Enterprise Linux
+date: 2013-09-06 12:42:04.000000000 -05:00
+type: post
+published: true
+status: publish
+categories:
+- Web Development
+tags:
+- Drupal
+- java
+- RHEL
+- Solr
+- tomcat
+meta:
+  _edit_last: '51126004'
+  geo_public: '0'
+  _publicize_pending: '1'
+author: Nathan Ahlstrom
+---
+<!--more-->
+<p>I am using Apache Solr in the Jetty servlet container it comes with, slightly modifying the examples setup, per the Drupal apachesolr documentation.<sup><a href="http://nathanahlstrom.wordpress.com/2013/09/06/running-apache-solr-in-tomcat-on-redhat-enterprise-linux/#one">[1]</a></sup> &nbsp;It has worked great in production!</p>
+<p>Moving to some new infrastructure I am also going to begin using railo 4.0 to host some old ColdFusion applications. &nbsp;Railo also comes with Jetty...so should I run multiple instances of jetty on different ports? &nbsp;Yes, but inefficient, so I'm going to get both running in one Tomcat instance.</p>
+<p>In this post I cover setting up Tomcat and Solr, the Railo details will come later.</p>
+<p>I am using the following versions:</p>
+<ul>
+<li>Solr 4.4.0</li>
+<li>Tomcat 7.0.42</li>
+<li>Drupal 7 (currently 7.22)</li>
+<li>Railo 4.0 (eventually)</li>
+<li>all running on RHEL 6.4</li>
+</ul>
+<p>Paul Taylor has written a very helpful <a href="http://ptylr.com/2013/07/25/configuring-solr-on-tomcat7-in-centos6/">post</a> on setting up Solr on Tomcat on CentOS 6 (which is &nbsp;RHEL 6 sans support). &nbsp;I've benefited greatly from his post. &nbsp;My environment has some different requirements, so below are the steps I used to get it up and running.</p>
+<p>I used the pkgsrc tool (described <a href="https://nathanahlstrom.wordpress.com/2013/08/20/netbsd-pkgsrc-on-rhel-6-4/">here</a>) to install the latest Java and Tomcat 7.0.42. &nbsp;Cheating!</p>
+<p>Tomcat is installed to /opt/pkg/share/tomcat. &nbsp;I've moved the log files to /export/home/logs/tomcat by making /opt/pkg/share/tomcat/logs a symbolic link. &nbsp;I also moved the webapps directory to /export/home1/webapps by a symlink.</p>
+<p><a href="http://nathanahlstrom.files.wordpress.com/2013/08/tomcat-directory-layout.png"><img class="aligncenter size-full wp-image-96" alt="tomcat directory layout" src="{{ site.baseurl }}/assets/tomcat-directory-layout.png" width="638" height="229" /></a></p>
+<p>In the conf/server.xml file I adjusted the appBase to point to my updated webapps location:</p>
+<pre>localhost" appBase="/export/home1/webapps" unpackWARs="true" autoDeploy="true"&gt;</pre>
+<p>Chown all the tomcat and solr files to be owned by the tomcat user and tomcat group.</p>
+<p>I used Paul Taylor's /etc/init.d/tomcat file with a very minor modifications to adjust the location of the TOMCAT_HOME and JAVA_HOME.</p>
+<p>I put the solr configuration files into /export/home1/config/solr, so had to adjust this file (a mysterious file to me) in /opt/pkg/share/tomcat/conf/Catalina/localhost/solr.xml to have this content:</p>
+<pre><!--?xml version="1.0" encoding="utf-8"?-->
+solr.war" debug="0" crossContext="true"&gt;</pre>
+<p>What files need to go into the solr config directory? I pulled the example/multicore/* files to /export/home1/config/solr.<br />
+Also needed the solr java libraries in the tomcat classpath area:</p>
+<pre># cp solr-4.4.0/example/lib/ext/* /opt/pkg/share/tomcat/lib</pre>
+<p>Should be ready to try it out.</p>
+<p>Start up tomcat and see if it works via:</p>
+<pre># service tomcat start</pre>
+<p>Keep an eye on the tomcat log files via the "tail -f" command.</p>
+<p>Copy in the Drupal apachesolr module solrconfig.xml, schema.xml, and other files per the readme instructions.</p>
+<p>Anything other configuration you would recommend to optimize Solr on Tomcat?</p>
+<hr />
+<p><a name="one"></a><br />
+<strong>Notes:</strong></p>
+<p>1. In <a href="http://drupalcode.org/project/apachesolr.git/blob/HEAD:/README.txt">apachesolr/README.TXT</a> in the module distribution, it says:</p>
+<pre style="padding-left:30px;">The Solr download comes with an example application that you can use for testing, development, and even for smaller production sites.</pre>

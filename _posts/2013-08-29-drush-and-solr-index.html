@@ -1,0 +1,27 @@
+---
+layout: post
+title: Drush and solr-index
+date: 2013-08-29 13:33:17.000000000 -05:00
+type: post
+published: true
+status: publish
+categories:
+- Web Development
+tags:
+- Drupal
+- drush
+- Solr
+meta:
+  _edit_last: '51126004'
+  _publicize_pending: '1'
+author: Nathan Ahlstrom
+---
+<!--more-->
+<p>Yesterday in the midst of migrating Drupal to new hardware, I ran the Solr "Delete the Search &amp; Solr index":</p>
+<p><img class="aligncenter size-full wp-image-82" alt="solr admin dialog" src="{{ site.baseurl }}/assets/solr-delete-index.png" width="613" height="51" /></p>
+<p>Then used "drush -r /path/to/drupal/files solr-index" to re-index and re-build everything.  My small dataset of 25000 nodes and files were quickly indexed.</p>
+<p>When I was testing I found great search results, but every link into the content was pointing to "http://default/files/abc.pdf " or "http://default/node/6324 ".  Uh-oh!</p>
+<p>I had two thoughts to fix this...is it like this on the staging server?  Nope.  What did I do different?  On stage I ran it via the web interface.  So it was a drush problem.</p>
+<p>Re-ran it again with the -l flag to drush:</p>
+<pre>drush -r /path/to/drupal/files -l http://drupalsite.example.com/drupal solr-index</pre>
+<p>After a second re-indexing, everything was repaired...whew!</p>

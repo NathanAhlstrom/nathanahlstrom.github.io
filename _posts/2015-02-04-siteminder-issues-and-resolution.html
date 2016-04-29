@@ -1,0 +1,74 @@
+---
+layout: post
+title: SiteMinder Issues and Resolution
+date: 2015-02-04 16:39:39.000000000 -06:00
+type: post
+published: true
+status: publish
+categories:
+- Web Development
+tags:
+- Apache
+- httpd
+- linux
+- SiteMinder
+- web administration
+- web server
+meta:
+  _edit_last: '51126004'
+  geo_public: '0'
+  _publicize_pending: '1'
+author: Nathan Ahlstrom
+---
+<p>In my workplace, we are using a product called CA SiteMinder.  On one half of a web server cluster it was failing hard!<br />
+<!--more--></p>
+<p>Created a simple HTML file by this command:</p>
+<p>echo "hi" &gt; index1.html</p>
+<p>Running a simple HTTP request to that file failed. What did the log files reveal...nada! Chased <a href="https://www.wordnik.com/words/red%20herring">red-herrings</a> with NIS, network issues, etc.</p>
+<p>Enabling SiteMinder logging didn't especially help much...could see a bunch of shared memory and semaphore activities.</p>
+<p><code><br />
+[11/Nov/2014:14:12:19] [Information] SiteMinder Agent<br />
+SiteMinder agent is running.<br />
+[11/Nov/2014:14:12:19] [Info] [CA WebAgent IPC] [29352] [CSmSem::getSem] Attached to semaphore 46268421 using key 0x3247862b<br />
+[11/Nov/2014:14:12:19] [Info] [CA WebAgent IPC] [29352] [CSmSharedSegment::smalloc] Attached to shared memory segment 4030465 using key 0x6147862b<br />
+[11/Nov/2014:14:12:19] [Info] [CA WebAgent IPC] [29352] [CSmSem::getSem] Attached to semaphore 46333959 using key 0x3347862b<br />
+[11/Nov/2014:14:12:19] [Info] [CA WebAgent IPC] [29352] [CSmSharedSegment::smalloc] Attached to shared memory segment 4096003 using key 0x6247862b<br />
+[11/Nov/2014:14:12:19] [Info] [CA WebAgent IPC] [29352] [CSmSem::getSem] Attached to semaphore 46366728 using key 0x3447862b<br />
+[11/Nov/2014:14:12:19] [Info] [CA WebAgent IPC] [29352] [CSmSharedSegment::smalloc] Attached to shared memory segment 4128772 using key 0x6347862b<br />
+[11/Nov/2014:14:12:19] [Info] [CA WebAgent IPC] [29352] [CSmSem::getSem] Attached to semaphore 46301190 using key 0x6a47862b<br />
+[11/Nov/2014:14:12:19] [Info] [CA WebAgent IPC] [29352] [CSmSharedSegment::smalloc] Attached to shared memory segment 4063234 using key 0x6947862b<br />
+[11/Nov/2014:14:12:19] [Information] SiteMinder Agent<br />
+SiteMinder agent is running.<br />
+</code></p>
+<p>Having some significant history with SiteMinder and Apache was helpful, but I was at a dead-end here. I tried network, file permissions, NIS issues, web server config review, SiteMinder config review.</p>
+<blockquote><p>Time to pray!</p></blockquote>
+<p>I can't say the answer came right away...probably within 24 hours and pushing on the doors I knew about, but I believe God did answer this prayer. Some might say, "God answering prayer about something so trivial? C'mon man." God does answer prayer and blesses His people who trust in Him through Jesus' death on the cross for sin.</p>
+<p>After praying I began to investigate the shared memory system on the Linux box.</p>
+<p><code><br />
+# ipcs</code></p>
+<p>---
+<!--more-->
+
+<!--more-->
+---
+<!--more-->
+ Shared Memory Segments --------<br />
+key shmid owner perms bytes nattch status<br />
+0x6c5470f0 983040 apache 644 8012 11<br />
+....<br />
+---
+<!--more-->
+
+<!--more-->
+---
+<!--more-->
+ Semaphore Arrays --------<br />
+key semid owner perms nsems<br />
+0x6b5470f0 425263107 apache 777 1<br />
+...<br />
+0x695470f0 425558028 apache 777 1<br />
+...</p>
+<p># ipcrm -s 425263107<br />
+# ipcrm -s 425558028</p>
+<p>After removing all the Semaphores and restarting Apache everything began working again! SiteMinder was choking on these semaphores.</p>
+<p>A server reboot would have also solved the issue.</p>

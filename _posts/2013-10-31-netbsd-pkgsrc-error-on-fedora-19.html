@@ -1,0 +1,53 @@
+---
+layout: post
+title: NetBSD pkgsrc error on Fedora 19
+date: 2013-10-31 11:52:46.000000000 -05:00
+type: post
+published: true
+status: publish
+categories:
+- Web Development
+tags:
+- Apache
+- fedora
+- linux
+- NetBSD
+- pkgsrc
+meta:
+  _edit_last: '51126004'
+  _publicize_pending: '1'
+author: Nathan Ahlstrom
+---
+<!--more-->
+<p>When trying to use the pkgsrc tool on Fedora 19 it gave me a few minor errors. See my previous post <a href="http://nathanahlstrom.wordpress.com/2013/08/20/netbsd-pkgsrc-on-rhel-6-4/">NetBSD pkgsrc on RHEL 6.4</a> for how-to set it up, etc.</p>
+<p>I was trying to build apache22 and during the dependency resolution pkgsrc determined to build tnftp, which gave the following error:</p>
+<pre># bmake all
+ERROR: This package has set PKG_FAIL_REASON:
+ERROR: No usable termcap library found on the system.
+*** Error code 1
+
+Stop.
+bmake: stopped in /opt/pkgsrc/net/tnftp</pre>
+<p>It was a quick work-around when I figured out which RPM to add.</p>
+<pre># yum install ncurses-devel</pre>
+<p>Next it hit another error when trying to build libtool.</p>
+<pre>checking whether we are using the GNU C++ compiler... no
+checking whether g++ accepts -g... no
+checking dependency style of g++... none
+checking how to run the C++ preprocessor... /lib/cpp
+configure: error: in `/opt/pkgsrc/devel/libtool-base/work/libtool-2.4.2':
+configure: error: C++ preprocessor "/lib/cpp" fails sanity check
+See `config.log' for more details
+*** Error code 1
+
+Stop.
+bmake: stopped in /opt/pkgsrc/devel/libtool-base
+*** Error code 1
+
+Stop.
+bmake: stopped in /opt/pkgsrc/devel/libtool-base</pre>
+<p>Another pretty easy work-around, with some help from the Fedora Q&amp;A site: https://ask.fedoraproject.org/question/28136/how-to-get-gcc-in-fedora-19/</p>
+<pre># yum install gcc-c++</pre>
+<p>That solved all the issues with trying to build apache22 from pkgsrc.</p>
+<p>I use pkgsrc to build a separate LAMP installation outside of the default RPM's - so that I can add custom modules and tweak settings pre-compilation.</p>
+<p>Anyone using pkgsrc on Linux - what success stories do you have to share?</p>

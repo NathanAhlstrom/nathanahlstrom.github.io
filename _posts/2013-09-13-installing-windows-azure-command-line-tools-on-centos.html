@@ -1,0 +1,165 @@
+---
+layout: post
+title: Installing Windows Azure command line tools on CentOS
+date: 2013-09-13 16:38:17.000000000 -05:00
+type: post
+published: true
+status: publish
+categories:
+- Web Development
+tags:
+- Azure
+- centos
+- cloud
+- command line
+- EPEL
+- linux
+- node.js
+- Windows Azure
+meta:
+  _edit_last: '51126004'
+  _publicize_pending: '1'
+  _oembed_2ae6e8f23df86f2618a0caebaed87b5c: '{{unknown}}'
+  _oembed_7429acb4be82a9340644a63038da88c7: '{{unknown}}'
+  _oembed_218ae37bc26f445e77fe2f04487ff728: '{{unknown}}'
+  _oembed_51fb73129f7888357c86e679ca83850c: '{{unknown}}'
+  _oembed_c0eec5ec60cd573d92309385ac25fff5: '{{unknown}}'
+  _oembed_8c5bd41e018e7f400f42953037a3e0d4: '{{unknown}}'
+  _oembed_c5062ce033304f126103a03da005a72c: '{{unknown}}'
+  _oembed_ef74959bd7c1a2f56db564bce51d68ae: '{{unknown}}'
+  _oembed_87e1580e13b576733bcaea29ce720a78: '{{unknown}}'
+  _oembed_631c89fbb7c88aaa95032775a7257a6e: '{{unknown}}'
+  _oembed_1c1412934cb0c9c701ae7948efe895b3: '{{unknown}}'
+  _oembed_133f6b043c4a6c7813507c45c198af39: '{{unknown}}'
+  _oembed_67ce5c848e58adf813700d39e57732a2: '{{unknown}}'
+author: Nathan Ahlstrom
+---
+<!--more-->
+<p>To install the Windows Azure command line tools there are several prerequisites:</p>
+<ol>
+<li>FedoraProject EPEL (Extra Packages for Enterprise Linux)</li>
+<li>Node.js (and the node.js package manager - npm)</li>
+</ol>
+<p>So first steps are to get the EPEL RPM:</p>
+<pre>$ sudo rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm</pre>
+<p>There is a ton of information about EPEL online, see Notes below for the main references.</p>
+<p>So step one was a breeze...now on to step two, installing node.js.</p>
+<pre>$ sudo yum search npm
+.
+.
+.
+Finished Dependency Resolution
+Error: Package: glibc-headers-2.12-1.80.el6_3.7.x86_64 (updates)
+           Requires: kernel-headers
+Error: Package: glibc-headers-2.12-1.80.el6_3.7.x86_64 (updates)
+           Requires: kernel-headers &gt;= 2.2.1
+ You could try using --skip-broken to work around the problem
+ You could try running: rpm -Va --nofiles --nodigest</pre>
+<p>After a bunch of output for the npm installation process it fails with the very unfriendly error message shown above! And running a fairly simple "yum search kernel-headers" also returns no results!</p>
+<p>There was a discussion about this missing on the Windows Azure forums<sup><a href="#one">[1]</a></sup>, so to get around this error:</p>
+<pre>$ sudo yum --disableexcludes=main install kernel-headers
+Loaded plugins: security
+Setting up Install Process
+Resolving Dependencies
+--&gt; Running transaction check
+---
+<!--more-->
+
+<!--more-->
+&gt; Package kernel-headers.x86_64 0:2.6.32-279.14.1.el6.openlogic will be installed
+--&gt; Finished Dependency Resolution
+
+Dependencies Resolved
+
+========================================================================
+Package         Arch    Version                        Repository  Size
+========================================================================
+Installing:
+kernel-headers  x86_64  2.6.32-279.14.1.el6.openlogic  openlogic   1.9 M
+
+Transaction Summary
+========================================================================
+Install       1 Package(s)
+
+Total download size: 1.9 M
+Installed size: 2.4 M
+Is this ok [y/N]: y
+Downloading Packages:
+kernel-headers-2.6.32-279.14.1.el6.openlogic.x86_64.rpm        | 1.9 MB     00:00     
+Running rpm_check_debug
+Running Transaction Test
+Transaction Test Succeeded
+Running Transaction
+  Installing : kernel-headers-2.6.32-279.14.1.el6.openlogic.x86_64                                1/1 
+  Verifying  : kernel-headers-2.6.32-279.14.1.el6.openlogic.x86_64                                1/1 
+
+Installed:
+  kernel-headers.x86_64 0:2.6.32-279.14.1.el6.openlogic                                               
+
+Complete!</pre>
+<p>So now we can re-run the fairly simple "sudo yum install npm". The output and the number of packages this simple command installs is remarkable: 103 RPM's on my CentOS installation.</p>
+<p>Wow, step two was painful, but good to go now.</p>
+<p>Prerequisites completed, now onto the goal: to install the Windows Azure command line tools from Microsoft to your hosted VM.  Note the "-g" flag at the end of the command line is for "global" installation.</p>
+<pre>$ sudo npm install azure-cli -g
+....
+bunch of output
+....
+$ which azure
+/usr/bin/azure</pre>
+<p>It is now installed! Test it out...and let's see what happens:</p>
+<pre>$ azure -h
+
+module.js:340
+    throw err;
+          ^
+Error: Cannot find module 'streamline'
+    at Function.Module._resolveFilename (module.js:338:15)
+    at Function.Module._load (module.js:280:25)
+    at Module.require (module.js:364:17)
+    at require (module.js:380:17)
+    at Object. (/home/azureuser/lib/cli.js:20:3)
+    at Module._compile (module.js:456:26)
+    at Object.Module._extensions..js (module.js:474:10)
+    at Module.load (module.js:356:32)
+    at Function.Module._load (module.js:312:12)
+    at Module.require (module.js:364:17)</pre>
+<p>Ugh..not cool. I saw a dozen of these kind of errors, so run:</p>
+<pre>$ sudo npm install streamline</pre>
+<p>Repeat this for every missing module.</p>
+<p>When you finally see output like below it is installed successfully:</p>
+<pre>$ azure -h
+info:             _    _____   _ ___ ___
+info:            /_\  |_  / | | | _ \ __|
+info:      _ ___/ _ \__/ /| |_| |   / _|___ _ _
+info:    (___  /_/ \_\/___|\___/|_|_\___| _____)
+info:       (_______ _ _)         _ ______ _)_ _ 
+info:              (______________ _ )   (___ _ _)
+info:    
+info:    Windows Azure: Microsoft's Cloud Platform
+info:    
+info:    Tool version 0.7.1
+help:    
+help:    Display help for a given command
+help:      help [options] [command]
+help:    
+help:    Open the portal in a browser
+help:      portal [options]
+help:    
+help:    Commands:
+help:      account                            Commands to manage your account information and publish 
+....
+output trimmed
+....
+help:    
+help:    Options:
+help:      -h, --help     output usage information
+help:      -v, --version  output the application version</pre>
+<p>Now have a look at the Microsoft Windows Azure documentation to begin using this tool:<br />
+http://www.windowsazure.com/en-us/develop/nodejs/how-to-guides/command-line-tools/#Account</p>
+<p><strong>Update:</strong> When installing this tool on my local CentOS server I didn't have the kernel-headers issue or the npm missing modules problem.  Your milage may vary (YMMV).</p>
+<hr />
+<p><a name="one"></a><br />
+<b>Notes:</b></p>
+<p>1. See the answer on this forum from the OpenLogic Azure Support Team: <a href="http://social.msdn.microsoft.com/Forums/windowsazure/en-US/b2770524-07a4-418d-8e03-6bd8634fa107/openlogic-centos-63-image-no-kernelheaders">http://social.msdn.microsoft.com/Forums/windowsazure/en-US/b2770524-07a4-418d-8e03-6bd8634fa107/openlogic-centos-63-image-no-kernelheaders</a></p>
+<p>2. More on EPEL: <a href="https://fedoraproject.org/wiki/EPEL">https://fedoraproject.org/wiki/EPEL</a> ;<br />
+<a href="https://fedoraproject.org/wiki/EPEL/FAQ">https://fedoraproject.org/wiki/EPEL/FAQ</a></p>
