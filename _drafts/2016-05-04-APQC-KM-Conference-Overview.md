@@ -61,8 +61,21 @@ The community manager encourages impactful activity through a variety of means:
 _My take-aways:_
 - investigate lucidchart.com to build mindmap type views and more
 - **change management should be a focus for every KM team**
-- **Position KM where burning need exists and grow it from there - Carla O'Dell APQC, restated by Pact speaker**
+- **Position KM where burning need exists and grow it from there - Carla O'Dell APQC, restated by speaker Sara Teitelman**
 - Document current state and ideal future state at the same time
+
+
+**Everyday Agile- How Everyday Agile Enhances the Flow of Knowledge | Rockwell Collins**
+
+This was an amazing talk!  Their title was very understated, "enhances" should be revolutionizes, sends into orbit, or re-creates...my two cents.
+
+The main idea was [Agile](https://en.wikipedia.org/wiki/Agile_software_development "Agile on Wikipedia") in the context of knowledge management.  The cadence/heartbeat of the Agile "sprint" is extremely effective for driving KM into project teams and refining development processes.  Speaker Tim Wendt referred to the "sprint" and the associated practices as "forcing functions".
+
+
+
+
+
+
 
 
 
