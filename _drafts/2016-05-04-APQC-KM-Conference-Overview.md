@@ -59,9 +59,10 @@ The community manager encourages impactful activity through a variety of means:
 - innovation campaigns and competitions
 
 _My take-aways:_
-- investigate lucidchart.com to build mindmap type views and more.
+- investigate lucidchart.com to build mindmap type views and more
 - **change management should be a focus for every KM team**
 - **Position KM where burning need exists and grow it from there - Carla O'Dell APQC, restated by Pact speaker**
+- Document current state and ideal future state at the same time
 
 
 
