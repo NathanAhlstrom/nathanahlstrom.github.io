@@ -9,7 +9,7 @@ _This is part of my summary series on the APQC Knowledge Management Conference 2
 
 Fascinating presentation, lots of helpful content here.  John Medina warned us that capturing notes during his talks is exceedingly difficult as he talks fast!  So I missed some concepts and I can't read the notes I did take!
 
-**Key take-aways on engaging individuals while speaking to them:**
+**Key take-aways on delivering engaging presentations from a neuroscience perspective:**
 
 - We process meaning ahead of detail - so tell stories augmented with statistics, but not vice versa.
 - Our attention span is 10 minutes, so at 9:59 tell a story, connect to meaning, etc. for the listener to get reconnected.
