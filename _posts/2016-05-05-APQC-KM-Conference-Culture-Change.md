@@ -35,7 +35,10 @@ The community manager encourages impactful activity through a variety of means:
 Bottom Line on social intranet success: promote, communicate, engage.
 
 _My take-aways:_
-- investigate lucidchart.com to build mindmap type views and more
-- change management should be a focus for every KM team
-- "Position KM where burning need exists and grow it from there" Carla O'Dell APQC, restated by speaker Sara Teitelman
-- Document current state and ideal future state at the same time
+<ul>
+<li>investigate lucidchart.com to build mindmap type views and more</li>
+<li>change management should be a focus for every KM team</li>
+<li>"Position KM where burning need exists and grow it from there" - Carla O'Dell APQC, restated by speaker Sara Teitelman</li>
+<li>Document current state and ideal future state at the same time</li>
+</ul>
+
