@@ -20,6 +20,5 @@ Brain Scientist
 
 - Enterprise Social Creating Business Value Through Finding People | Medtronic
 
-On Friday morning I was presenting the information on Finding People, unfortunately after presenting I had to dash off to catch a flight.
-
+On Friday morning I was presenting the information on Finding People, unfortunately after presenting I had to dash off to catch a flight, so I was unable to attend any other sessions.
 
