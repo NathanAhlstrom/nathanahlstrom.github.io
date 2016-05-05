@@ -27,10 +27,12 @@ Not technology/tool driven effort more than throwing a tool at the problem!
 Their social intranet based on JIVE went viral through C-suite promotion and having a dedicated community manager.
 
 The community manager encourages impactful activity through a variety of means:
-- weekly email newsletter featuring people, communities, most active geography
-- monthly info graphic
-- yearly survey
-- innovation campaigns and competitions
+<ul>
+<li>weekly email newsletter featuring people, communities, most active geography</li>
+<li>monthly info graphic</li>
+<li>yearly survey</li>
+<li>innovation campaigns and competitions</li>
+</ul>
 
 Bottom Line on social intranet success: promote, communicate, engage.
 
