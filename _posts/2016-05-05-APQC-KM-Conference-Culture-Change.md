@@ -1,11 +1,11 @@
 ---
 layout: post
-title: APQC KM Conference - Culture Change
+title: "APQC KM Conference - Culture Change"
 type: post
 published: true
 status: publish
 category: Knowledge Management
-tags: KM,APQC,APQCKM,conference
+tags: "KM,APQC,APQCKM,conference"
 author: Nathan Ahlstrom
 excerpt: Excellent primer on using Knowledge Management efforts as culture change catalyst...
 ---
@@ -36,7 +36,6 @@ Bottom Line on social intranet success: promote, communicate, engage.
 
 _My take-aways:_
 - investigate lucidchart.com to build mindmap type views and more
-- **change management should be a focus for every KM team**
-- **Position KM where burning need exists and grow it from there - Carla O'Dell APQC, restated by speaker Sara Teitelman**
+- change management should be a focus for every KM team
+- "Position KM where burning need exists and grow it from there" Carla O'Dell APQC, restated by speaker Sara Teitelman
 - Document current state and ideal future state at the same time
-
