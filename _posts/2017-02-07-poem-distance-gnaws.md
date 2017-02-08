@@ -12,7 +12,6 @@ meta:
 author: Nathan Ahlstrom
 excerpt: Poetry
 ---
-
 <style>
 	.poem {
 		margin-top:10px;
@@ -24,9 +23,7 @@ excerpt: Poetry
 		border: 0px solid #ffffff; !important
 	}
 </style>
-
 # Distance Gnaws #
-
 <pre class="poem" style="border:0;">
 Distance gnaws as thoughts prowl
 Strife drips from the teeth of folly
