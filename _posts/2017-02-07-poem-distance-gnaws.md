@@ -25,21 +25,21 @@ excerpt: Poetry
 </style>
 # Distance Gnaws #
 <pre class="poem" style="border:0;">
-Distance gnaws as thoughts prowl
+Distance gnaws as thoughts prowl,
 Strife drips from the teeth of folly
 Fight back; "defend" pride yells from the
-Recesses struggling to explode from the
-Depths to breathe deeply escaping from
+Recesses; struggling to explode from the
+Depths; to breathe deeply escaping from
 Watery clutches. Drown him.
 
 Separation like a mile the heart feels at
 Warp speed; arrows sail dripping with hot
-Oil laser sharpened to cut and perforate
+Oil, laser sharpened to cut and perforate.
 The match of Gehenna poised at luscious
 Lips billows forth pollution and poison.
 
 Pillows and rest become pyres and nails;
-Communicate yells the grief-striken heart
+Communicate yells the grief-striken heart,
 Overcome with sorrow.  Death pleads the prophets
 Yearning for the better country.  Passions
 Battle within; external quarrels and conflicts
