@@ -102,3 +102,5 @@ SSLCipherSuite  ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-
 Another colleague chimed in recommending this post for keeping up to date on web server cipher options:
 
 [https://hynek.me/articles/hardening-your-web-servers-ssl-ciphers/](https://hynek.me/articles/hardening-your-web-servers-ssl-ciphers/){:target="_blank"}
+
+Thanks Dwight!
