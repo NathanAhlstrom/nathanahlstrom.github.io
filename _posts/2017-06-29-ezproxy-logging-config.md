@@ -7,7 +7,7 @@ published: true
 tags: [library, ezproxy, metrics, logstash, filebeats, elasticsearch, elastic, ELK]
 meta:
 author: Nathan Ahlstrom
-excerpt: Tuning up logging on ezproxy in preparation for Elastic stack log visualization.
+excerpt: Tuning up logging on ezproxy in preparation to visualize using the Elastic stack.
 ---
 # LogFormat, LogFile, and other tune-up to ezProxy in preparation for visualization of library database usage. #
 
