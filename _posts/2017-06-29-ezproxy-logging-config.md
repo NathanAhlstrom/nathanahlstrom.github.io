@@ -33,7 +33,7 @@ For more information see the OCLC ezProxy documentation:
 
 [Option LogUser - see page 70 of the PDF file](https://www.oclc.org/content/dam/support/ezproxy/documentation/pdf/ezproxy_referencemanual.pdf){:target="_blank"}
 
-This information is current for 6.2.2 - June of 2017.
+This information is current for ezproxy version 6.2.2 running on Linux.
 
 [Elastic stack](https://www.elastic.co/webinars/introduction-elk-stack){:target="_blank"} - Elasticsearch, Logstash, Kibana, and Filebeats are tools for pulling log files, and pushing into a repository for the purpose of visualizing log file data (and lots of other data).
 
