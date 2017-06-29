@@ -99,3 +99,6 @@ Here is the updated SSLCipherSuite line minus kEDH+AESGCM:
 SSLCipherSuite  ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSAAES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK
 </code>
 
+Another colleague chimed in recommending this post for keeping up to date on web server cipher options:
+
+[https://hynek.me/articles/hardening-your-web-servers-ssl-ciphers/](https://hynek.me/articles/hardening-your-web-servers-ssl-ciphers/){:target="_blank"}
