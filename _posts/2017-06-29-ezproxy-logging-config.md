@@ -9,9 +9,9 @@ meta:
 author: Nathan Ahlstrom
 excerpt: Tuning up logging on ezproxy in preparation to visualize using the Elastic stack.
 ---
-# LogFormat, LogFile, and other tune-up to ezProxy in preparation for visualization of library database usage. #
+# LogFormat, LogFile, and other tune-ups to ezProxy in preparation for visualization of library database usage. #
 
-Getting our ezproxy prepared for rolling out the Elastic stack to visualize the ezProxy log files.
+I am working on getting our ezproxy prepared for rolling out the Elastic stack to visualize the ezProxy log files.
 
 A few changes in our config.txt to be prepared:
 
