@@ -27,7 +27,7 @@ ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-S
 
 After adding this complex line the scan came back essentially the same!  I still had TLS 1.0 enabled.
 
-A few rounds of scan and tweak with my stern-faced colleague, then I learned about [openssl s_client](https://www.openssl.org/docs/man1.0.2/apps/s_client.html "openssl s_client manpage"){:target="_blank"}.
+A few rounds of scan and tweak with my security friend, then I learned about [openssl s_client](https://www.openssl.org/docs/man1.0.2/apps/s_client.html "openssl s_client manpage"){:target="_blank"}.
 
 <code>
 	$ openssl s_client -servername 10.1.1.1 -connect 10.1.1.1:443 -tls1 -cipher 3DES < /dev/null
@@ -81,5 +81,21 @@ SSLHonorCipherOrder On
 SSLCipherSuite  ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSAAES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK
 </code>
 
-Make sure this last line is one line in your config.txt file.
+Make sure this SSLCipherSuite line does not contain any newline characters in your config.txt file.
+
+## UPDATE 6/29/2017 ##
+
+Some colleagues on the ezproxy listserv (extremely helpful resource for ezproxy administrators, btw) mentioned this resource:
+
+[https://wiki.mozilla.org/Security/Server_Side_TLS](https://wiki.mozilla.org/Security/Server_Side_TLS){:target="_blank"}
+
+Based on this resource, he recommended removing the kEDH+AESGCM cipher option.
+
+Thanks Dom!
+
+Here is the updated SSLCipherSuite line minus kEDH+AESGCM:
+
+<code>
+SSLCipherSuite  ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSAAES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK
+</code>
 
