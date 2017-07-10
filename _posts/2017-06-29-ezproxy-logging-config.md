@@ -1,6 +1,6 @@
 ---
 layout: post
-title: LogFormat and other logging enhancements for ezProxy
+title: LogFormat and other logging enhancements for ezProxy - Part 1
 date: 20170629
 type: post
 published: true

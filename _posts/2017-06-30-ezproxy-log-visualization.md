@@ -1,13 +1,13 @@
 ---
 layout: post
-title: Elastic stack for visualizing ezproxy log data.
+title: Elastic stack for visualizing ezproxy log data - Part 2
 date: 20170630
 type: post
 published: true
 tags: [library, ezproxy, metrics, logstash, filebeats, elasticsearch, elastic, ELK]
 meta:
 author: Nathan Ahlstrom
-excerpt: Installing and configuring the Elastic stack to visualize ezproxy log files.
+excerpt: Installing and configuring the Elastic stack to visualize ezproxy log files - Part 2 of series
 ---
 
 # Amazing visuals of ezProxy log files #
